@@ -33,11 +33,11 @@ const IconWrapper = styled(Box)({
     gap:20
 })
 
-const Header = () => {
+const Header = ({toggleDrawer}) => {
   return (
     <StyledAppBar position="static">
         <Toolbar>
-            <Button sx={{padding:0,minWidth:'15px'}}><Menu color='action'/></Button>
+            <Button onClick={toggleDrawer} sx={{padding:0,minWidth:'15px'}}><Menu color='action'/></Button>
             <img src={gmailLogo} alt = 'logo' style={{width:110, marginLeft:15}}/>
             
             <SearchWrapper>
