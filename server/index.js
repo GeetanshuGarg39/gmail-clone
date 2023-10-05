@@ -1,10 +1,17 @@
 import express from 'express';
 import Connection  from "./database/db.js";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import router from './routes/route.js';
+import cors from 'cors';
+
+const app = express();
 
 dotenv.config();
 
-const app = express();
+app.use(cors());
+app.use(express.urlencoded({extended:true}));
+app.use(express.json({extended:true}));
+app.use('/',router);
 
 const PORT = 8000;
 
