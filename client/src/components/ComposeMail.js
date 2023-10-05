@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {Dialog,Box,Typography,styled,InputBase,TextField,Button} from "@mui/material";
 import { Close, DeleteOutline } from "@mui/icons-material";
+import useApi from "../hooks/useApi";
+import { API_URLS } from "../services/api.urls";
 
 const dialogStyle = {
   width: "80%",
@@ -52,8 +54,9 @@ const SendButton = styled(Button)({
 });
 
 const ComposeMail = ({ openDialog, setOpenDialog }) => {
-
   const [data,setData] = useState({});
+  const sentEmailService = useApi(API_URLS.saveSentEmail);
+
   const config = {
     Host: "smtp.elasticemail.com",
     Username: process.env.REACT_APP_USERNAME,
@@ -79,6 +82,28 @@ const ComposeMail = ({ openDialog, setOpenDialog }) => {
             message => alert(message)
         );
     }
+
+    const payload = {
+      to:data.recipients,
+      from:"geetanshugarg39@gmail.com",
+      subject:data.subject,
+      body:data.body,
+      date: new Date(),
+      attachment: "",
+      name:"Geetanshu Garg",
+      starred:false,
+      type:'sent'
+    }
+
+    sentEmailService.call(payload);
+
+    if(!sentEmailService.error){
+      setOpenDialog(false);
+      setData({});
+    }else{
+
+    }
+
     setOpenDialog(false);
   };
 
