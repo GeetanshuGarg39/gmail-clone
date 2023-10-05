@@ -54,6 +54,12 @@ const SendButton = styled(Button)({
 const ComposeMail = ({ openDialog, setOpenDialog }) => {
 
   const [data,setData] = useState({});
+  const config = {
+    Host: "smtp.elasticemail.com",
+    Username: process.env.REACT_APP_USERNAME,
+    Password: process.env.REACT_APP_PASSWORD,
+    Port: 2525
+  };
 
   const closeComposeMail = (e) => {
     e.preventDefault();
@@ -61,6 +67,18 @@ const ComposeMail = ({ openDialog, setOpenDialog }) => {
   };
 
   const sendMail = (e) => {
+    e.preventDefault();
+    if(window.Email){
+        window.Email.send({
+          ...config,
+          To: data.recipients,
+          From: "geetanshugarg39@gmail.com",
+          Subject: data.subject,
+          Body: data.body,
+        }).then(
+            message => alert(message)
+        );
+    }
     setOpenDialog(false);
   };
 
