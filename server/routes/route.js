@@ -6,6 +6,7 @@ const router = express.Router();
 
 
 router.post("/save",saveSentEmail);
-router.get("/emails/:type",getEmails)
+router.get("/emails/:type",getEmails);
+router.post('/save-draft',saveSentEmail);
 
 export default router;
