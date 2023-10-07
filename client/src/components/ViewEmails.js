@@ -3,6 +3,8 @@ import { useOutletContext,useLocation } from 'react-router-dom'
 import { Box, Typography, styled } from '@mui/material';
 import { ArrowBack, Delete } from '@mui/icons-material';
 import { emptyProfilePic } from '../constants/constants';
+import useApi from '../hooks/useApi';
+import { API_URLS } from '../services/api.urls';
 
 const IconWrapper = styled(Box)({
   padding:15
@@ -53,11 +55,19 @@ const ViewEmails = () => {
     const {openDrawer} = useOutletContext();
     const {state} = useLocation();
     const {email} = state;
+    const moveEmailsToBinService = useApi(API_URLS.moveEmailsToBin);
+
+const deleteEmail = () => {
+  moveEmailsToBinService.call([email._id]);
+  window.history.back();
+}
+
+
   return (
     <Box style={openDrawer ? {marginLeft:'250px'}:{width:'100%'}}>
       <IconWrapper>
         <ArrowBack onClick = {() => window.history.back() } color='action'  fontSize='small'/>
-        <Delete color='action'  fontSize='small'style={{marginLeft:40}}  />
+        <Delete color='action'  fontSize='small'style={{marginLeft:40}} onClick={() => deleteEmail()} />
       </IconWrapper>
       <Subject>
         {email.subject} 
