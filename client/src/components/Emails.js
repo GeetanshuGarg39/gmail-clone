@@ -15,6 +15,7 @@ const Emails = () => {
   const {type} = useParams();
   const getEmailsService = useApi(API_URLS.getEmailsFromType);
   const moveEmailsToBinService = useApi(API_URLS.moveEmailsToBin);
+  const deleteEmailService = useApi(API_URLS.deleteEmail);
   
   useEffect(() => {
     getEmailsService.call({},type);
@@ -31,7 +32,7 @@ const Emails = () => {
 
   const deleteSelectedEmails = (e) =>{
     if(type==='bin'){
-
+      deleteEmailService.call(selectedEmails)
     }else{
       moveEmailsToBinService.call(selectedEmails);
     }
