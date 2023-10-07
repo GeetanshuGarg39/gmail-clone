@@ -37,7 +37,7 @@ const Date = styled(Typography)({
     color:'#5f6368'
 })
 
-const Email = ({email,selectedEmails,setRefreshScreen}) => {
+const Email = ({email,selectedEmails,setSelectedEmails,setRefreshScreen}) => {
 
     const navigate = useNavigate();
     const toggleStarredServices = useApi(API_URLS.toggleStarredEmail);
@@ -46,11 +46,20 @@ const Email = ({email,selectedEmails,setRefreshScreen}) => {
         setRefreshScreen(prevState => !prevState);
     }
 
+    const onValueChange = () => {
+        if(selectedEmails.includes(email._id)){
+            setSelectedEmails(prevState => !prevState.filter(id=>id!=email._id))
+        }else{
+            selectedEmails(prevState => [...prevState,email._id]);
+        }
+    }
+
   return (
       <Wrapper>
         <Checkbox 
             size='small'
             checked={selectedEmails.includes(email._id)}
+            onChange={() => onValueChange()}
         />
         {
             email.starred ? 

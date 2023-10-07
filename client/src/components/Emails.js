@@ -53,6 +53,7 @@ const Emails = () => {
               email={email} 
               selectedEmails = {selectedEmails}
               setRefreshScreen={setRefreshScreen}
+              setSelectedEmails={setSelectedEmails}
               />
             ))
           }
