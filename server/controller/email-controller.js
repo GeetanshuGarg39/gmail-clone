@@ -50,3 +50,13 @@ export const toggleStarredEmails = async(request,response) => {
         response.status(500).json(error.message);
     }
 }
+
+export const deleteEmails = async(request,response) => {
+    try{
+        await Email.deleteMany({_id: {$in:request.body}})
+        return response.status(200).json("Email deleted Successfully")
+    }catch(error){
+        console.log(error);
+        response.status(500).json(error.message);
+    }
+}
