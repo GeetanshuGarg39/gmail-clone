@@ -8,9 +8,15 @@ import Email from './common/Email';
 
 const Emails = () => {
   const [selectedEmails,setSelectedEmails] = useState([]);
+  const [refreshScreen,setRefreshScreen] = useState(false);
   const {openDrawer} = useOutletContext();
   const {type} = useParams();
   const getEmailsService = useApi(API_URLS.getEmailsFromType);
+  const moveEmailsToBinService = useApi(API_URLS.moveEmailsToBin);
+  
+  useEffect(() => {
+    getEmailsService.call({},type);
+  },[type,refreshScreen])
 
   const selectedAllEmails = (e) => {
     if(e.target.checked){
@@ -21,15 +27,20 @@ const Emails = () => {
     }
   }
 
-  useEffect(() => {
-    getEmailsService.call({},type);
-  },[type])
-  
+  const deleteSelectedEmails = (e) =>{
+    if(type==='bin'){
+
+    }else{
+      moveEmailsToBinService.call(selectedEmails);
+    }
+    setRefreshScreen(prevState => !prevState);
+  }
+
     return (
     <div style={openDrawer ? {marginLeft:'250px', width:'calc(100%-250px)'}:{width:'100%'}}>
       <Box style={{padding:"20px 10px 0 10px", display:'flex', alignItems:'center'}}>
         <Checkbox size="small" onChange={(e)=>selectedAllEmails(e)} />
-        <DeleteOutline />
+        <DeleteOutline onClick={(e) => deleteSelectedEmails(e)} />
       </Box>
       <Box >
         <List>
