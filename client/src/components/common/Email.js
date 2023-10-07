@@ -48,9 +48,9 @@ const Email = ({email,selectedEmails,setSelectedEmails,setRefreshScreen}) => {
 
     const onValueChange = () => {
         if(selectedEmails.includes(email._id)){
-            setSelectedEmails(prevState => !prevState.filter(id=>id!=email._id))
+            setSelectedEmails(prevState => !prevState.filter(id=>id!==email._id))
         }else{
-            selectedEmails(prevState => [...prevState,email._id]);
+            setSelectedEmails(prevState => [...prevState,email._id]);
         }
     }
 
