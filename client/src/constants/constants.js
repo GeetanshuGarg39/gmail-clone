@@ -21,6 +21,10 @@ export const EMPTY_TABS = {
     },
     bin: {
         heading: 'No conversations in Bin.',
-        subHeading: ''
+        subHeading: 'All deleted mails will appear here'
+    },
+    allmail:{
+        heading:"No conversations",
+        subHeading:"All the mails will be shown here"
     }
 }
