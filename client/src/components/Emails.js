@@ -49,7 +49,9 @@ const Emails = () => {
               <Email 
               key={email._id} 
               email={email} 
-              selectedEmails = {selectedEmails}/>
+              selectedEmails = {selectedEmails}
+              setRefreshScreen={setRefreshScreen}
+              />
             ))
           }
         </List>
